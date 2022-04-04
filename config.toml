@@ -1,6 +1,6 @@
 baseURL = "https://nrrf.github.io/visual_computing_page"
 languageCode = "en-us"
-title = "Showcase Template"
+title = "CV-2022-1"
 theme = 'book'
 
 # Book configuration
@@ -34,4 +34,4 @@ enableGitInfo = true
   # Portable links meant to work with text editors and let you write markdown without {{< relref >}} shortcode
   # Theme will print warning if page referenced in markdown does not exists.
   BookPortableLinks = false
-
+  BookMenuBundle = '/menu'

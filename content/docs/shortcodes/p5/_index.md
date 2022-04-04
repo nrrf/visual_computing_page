@@ -2,10 +2,10 @@
 bookCollapseSection: true
 ---
 
-# p5
+# Ilusiones
 
-`p5` helps add [p5 sketches](https://p5js.org/) into your book. There are two types of `p5` [shortcodes](https://gohugo.io/content-management/shortcodes/) according to the html element used to embed them.
+> 'Tienes que crear confusión sistemáticamente, libera la creatividad. Todo lo que es contradictorio crea vida', <em>Salvador Dalli</em>
 
-## Types
+## Schroeder Stairs 
 
 {{<section>}}
