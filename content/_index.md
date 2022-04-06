@@ -24,4 +24,4 @@ type: docs
 
 **Pasatiempos:** Ciclismo, Futbol, deportes en general
 
-{{< p5-iframe sketch="/visual_computing_page/sketches/schroeder_stairs.js" width="325" height="325" >}}
+{{< p5-iframe sketch="/visual_computing_page/sketches/cube.js" width="325" height="325" >}}
