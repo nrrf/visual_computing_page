@@ -4,9 +4,9 @@ function setup() {
   }
   
   function draw() {
-    background(0);
+    stroke(237, 34, 93);
    
-    stroke(175)
+    background(200)
    
     noFill()
    
