@@ -1,0 +1,107 @@
+<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Proyecciones #  Para estas proyecciones y su interpretacion se basa en The Math behind (most) 3D games - Perspective Projection, Esta difiere de la implementacion vista en clase debido a que varia el View Volume y el sistema de coordenadas, pero la explicacion nos da una buena introducción a lo que se busca con las proyecciones
+Para tener en cuenta esta usa el software vulkan q al igual que OpenGL tienen el objetivo de producir graficas en 3D"><meta name=theme-color content="#FFFFFF"><meta name=color-scheme content="light dark"><meta property="og:title" content><meta property="og:description" content="Proyecciones #  Para estas proyecciones y su interpretacion se basa en The Math behind (most) 3D games - Perspective Projection, Esta difiere de la implementacion vista en clase debido a que varia el View Volume y el sistema de coordenadas, pero la explicacion nos da una buena introducción a lo que se busca con las proyecciones
+Para tener en cuenta esta usa el software vulkan q al igual que OpenGL tienen el objetivo de producir graficas en 3D"><meta property="og:type" content="article"><meta property="og:url" content="https://nrrf.github.io/visual_computing_page/docs/shortcodes/projections/"><meta property="article:section" content="docs"><meta property="article:modified_time" content="2022-04-29T13:34:35-05:00"><title>Projections | CV-2022-1</title><link rel=manifest href=/visual_computing_page/manifest.json><link rel=icon href=/visual_computing_page/favicon.png type=image/x-icon><link rel=stylesheet href=/visual_computing_page/book.min.ab46de3e725a6415339a37bba23a0067534a37289b063c9f8d011515a63097a8.css integrity="sha256-q0bePnJaZBUzmje7ojoAZ1NKNyibBjyfjQEVFaYwl6g=" crossorigin=anonymous><script defer src=/visual_computing_page/flexsearch.min.js></script>
+<script defer src=/visual_computing_page/en.search.min.8bed8ab3783c5ab0a98c717917592fd7ad47740814aad949849161c9a96d262a.js integrity="sha256-i+2Ks3g8WrCpjHF5F1kv161HdAgUqtlJhJFhyaltJio=" crossorigin=anonymous></script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/visual_computing_page/><span>CV-2022-1</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li><p><strong>Introducción</strong></p></li><li><p><a href=/visual_computing_page/docs/shortcodes/ilusiones/>Ilusiones</a></p></li><li><p><a href=/visual_computing_page/docs/shortcodes/projections/ class=active>Proyecciones</a><br></p></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/visual_computing_page/svg/menu.svg class=book-icon alt=Menu></label>
+<strong>Projections</strong>
+<label for=toc-control><img src=/visual_computing_page/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#proyecciones>Proyecciones</a></li><li><a href=#proyeccion-ortogonal-analogo-para-otro-view-volume-y-diferente-sistema-de-coordenadas>Proyeccion Ortogonal (Analogo, para otro View Volume y diferente sistema de coordenadas)</a></li><li><a href=#matriz-de-perspectiva-opengl>Matriz de perspectiva (OpenGL)</a></li></ul></nav></aside></header><article class=markdown><h1 id=proyecciones>Proyecciones
+<a class=anchor href=#proyecciones>#</a></h1><p>Para estas proyecciones y su interpretacion se basa en <a href="https://www.youtube.com/watch?v=U0_ONQQ5ZNM">The Math behind (most) 3D games - Perspective Projection</a>, Esta difiere de la implementacion vista en clase debido a que varia el View Volume y el sistema de coordenadas, pero la explicacion nos da una buena introducción a lo que se busca con las proyecciones<br>Para tener en cuenta esta usa el software vulkan q al igual que OpenGL tienen el objetivo de producir graficas en 3D</p><p>Nosotros en p5js usamos, WebGL is a web version on OpenGL, i.e a 3D engine. &ldquo;It allows you to make 3D materials in the browser, using JavaScript. It is rendered using the GPU and thus is more performant than regular canvas, so it is also used for 2D games.&rdquo; (Por lo que vemos que el sistema que usamos en clase es el mismo de OpenGL, asi que esto es simplemente demostrativo con otro caso)</p><p>Ahora bien en que difiere el View Volume de Vulkan con respecto al de OpenGL:</p><p>El de vulkan tiene las siguientes coordenadas que definen el cuboid:</p><ul><li><p>$$\text{x from }(-1,1) $$</p></li><li><p>$$\text{y from }(-1,1)$$</p></li><li><p>$$\text{z from }(0,1)$$</p></li></ul><p>Como hemos dicho difiere del de OpenGL en el hecho de que el view volume es diferente, ya que en el caso de OpenGL es un cubo, en el que z va de -1 a 1, ademas de que el <a href=https://programmerclick.com/article/3769891961/>sistema de coordenadas en OpenGL es zurdo, mientras este es derecho</a></p><p><img src=https://programmerclick.com/images/395/29e3b135c2a2f36ddde28b4b1b7ffc6b.png alt="sistema cooredenadas"></p><h1 id=proyeccion-ortogonal-analogo-para-otro-view-volume-y-diferente-sistema-de-coordenadas>Proyeccion Ortogonal (Analogo, para otro View Volume y diferente sistema de coordenadas)
+<a class=anchor href=#proyeccion-ortogonal-analogo-para-otro-view-volume-y-diferente-sistema-de-coordenadas>#</a></h1><p>Una proyeccion ortogonal es una generalizacion del volumen de la vista que nos permite especificar las dimensiones y la ubicacion que queramos pero mantiene la forma general del volumen de la vista y mantiene fijas la direccion y la orientacion de la vista</p><p>En el caso de OpenGL:</p><p><img src=http://www.songho.ca/opengl/files/gl_projectionmatrix02.png alt="sistema cooredenadas"></p><p>EN el caso de Vulkan:
+<img src=/visual_computing_page/sketches/perspective_ort.png alt="sistema cooredenadas"></p><p>Ahora bien, continuando, lo que debemos hacer es:</p><p>Tener claro que el view volume tiene 6 planos que son right,left,top,bottom,far,near</p><p><img src=/visual_computing_page/sketches/modified_pojection.png alt="sistema cooredenadas"></p><p>Volviendo al caso que estamos analizando:</p><ol><li>Translate centre c, of near plane to origin:</li></ol><link rel=stylesheet href=/visual_computing_page/katex/katex.min.css><script defer src=/visual_computing_page/katex/katex.min.js></script>
+<script defer src=/visual_computing_page/katex/auto-render.min.js onload=renderMathInElement(document.body)></script><span>
+\[c=\left( \frac{r+l}{2} , \frac{b+t}{2} , n\right)\]</span><p>Translation Matrix:
+<span>\[\text{Translation Matrix =}\begin{pmatrix}
+1 & 0 & 0 & -C_x\\
+0 & 1 & 0 & -C_y\\
+0 & 0 & 1 & -C_z\\
+0 & 0 & 0 & 1
+\end{pmatrix}\]</span></p><p>Reemplazando
+<span>\[ \text{Translation Matrix=}
+\begin{pmatrix}
+1 & 0 & 0 & -(r+l)/2\\
+0 & 1 & 0 & -(b+t)/2\\
+0 & 0 & 1 & -n\\
+0 & 0 & 0 & 1
+\end{pmatrix}\]</span></p><ol><li>Scale Matrix to size of canonical</li></ol><p>Ahora bien en esta matriz para escalar es importante tener en cuenta que en los primeros 3 valores de la diagonal principal de la matriz, el numerador hace referencia a las dimensiones del view volume, en este caso (2,2,1), en el caso de OpenGL seria (2,2,2)</p><p><span>\[M_{ort}=\begin{pmatrix}
+\frac{2}{S_x} & 0& 0 & 0\\
+0 & \frac{2}{S_y} & 0 & 0\\
+0 & 0 & \frac{1}{S_z} & 0\\
+0 & 0 & 0 & 1
+\end{pmatrix}\begin{pmatrix}
+1 & 0 & 0 & -(r+l)/2\\
+0 & 1 & 0 & -(b+t)/2\\
+0 & 0 & 1 & -n\\
+0 & 0 & 0 & 1
+\end{pmatrix}\]</span>
+Y el denominador van a ser las dimensiones del View Volume ortogonal<br><span>\[M_{ort}=\begin{pmatrix}
+\frac{2}{(r-l)} & 0 & 0 & 0\\
+a & \frac{2}{(b-t)} & 0 & 0\\
+0 & 0 & \frac{1}{f-n} & 0\\
+0 & 0 & 0 & 1
+\end{pmatrix}\begin{pmatrix}
+1 & 0 & 0 & -(r+l)/2\\
+0 & 1 & 0 & -(b+t)/2\\
+0 & 0 & 1 & -n\\
+0 & 0 & 0 & 1
+\end{pmatrix}=\begin{pmatrix}
+\frac{2}{(r+l)} & 0 & 0 & \frac{-(r-l)}{(r-l)}\\
+0 & \frac{2}{(b-t)} & 0 & \frac{-(b+t)}{(b-t)}\\
+0 & 0 & \frac{1}{(f-n)} & \frac{-n}{(f-n)}\\
+0 & 0 & 0 & 1
+\end{pmatrix}\]</span>
+Al aplicar estas transformaciones a nuestros objetos, los objetos que se encuentran dentro de la region ocupada por el volumen de vista ortografica se escalaran y se moveran a la region cubierta por el volumen de vista canonica, y por lo tanto los !objetos se mostraran¡</p><h1 id=matriz-de-perspectiva-opengl>Matriz de perspectiva (OpenGL)
+<a class=anchor href=#matriz-de-perspectiva-opengl>#</a></h1><p>Pero el volumen de la vista ortografica no aplica la perspectiva, para ello necesitamos un volumen de visualizacion que no tenga forma de caja, sino una forma conocida como <a href=https://en.wikipedia.org/wiki/Frustum>Square Frustrum</a></p><p><img src=https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Square_frustum.png/200px-Square_frustum.png alt="sistema cooredenadas"></p><p>La idea del frustum cuadrado en la proyeccion es:</p><p><img src=http://glumpy.readthedocs.io/en/latest/_images/projection.png alt="sistema cooredenadas"></p><p>Entonces lo que queremos es una matriz de perspetiva que transforme el tronco y cualquier objeto que contenga en el volumen de la vista Ortogonal</p><p>Para ello es imporante la siguiente notación:</p><p>Ya entendido el concepto vamos a mostrar este ejemplo con la de OpenGL:</p><p>En OpenGL la matriz de perspectiva esta definida como:
+<span>\[\left[\begin{array}{cccc}
+{ \dfrac{2n}{ r-l } } & 0 & { \dfrac{r + l} { r-l } } & 0 \\
+0 & { \dfrac{2n}{ t-b } } & { \dfrac{t + b}{ t-b } } & 0 \\
+0 & 0 & -{\dfrac{f+n}{f-n}} & -{\dfrac{2fn}{f-n}}\\
+0 & 0 & -1& 0\\
+\end{array}\right]\]</span></p><p>Para empezar es importante recordar que las matrices en OpenGL, estan definidas usando <a href=https://www.scratchapixel.com/lessons/mathematics-physics-for-computer-graphics/geometry/row-major-vs-column-major-vector>Column Major Order</a></p><p>Cuando multiplicamos un punto homogéneo con esta matriz, la coordenada w del punto se multiplica por este elemento y el valor de w resulta ser la coordenada z del punto proyectado</p><p>Principio de esto:
+Podemos usar el truco de triangulos similares. los triangulos A B C y D E F son similares. Por lo tanto podemos escribir:</p><p>Si reemplazamos AB por n, el plano de recorte cercano, DE con Pz(la coordenada z de P) y EF con Py(la coordenada y de P) podemos reescribir esta ecuación como (ecuación 1):
+<span>\[{\dfrac{n}{-P_z}} = {\dfrac{BC}{P_y}} \rightarrow BC = Ps_y = {\dfrac{n * P_y}{-P_z}}.\]</span></p><p>Ahora bien aca podemos hacer el razonamiento de que (tenga en cuenta que debido a que la cámara está orientada a lo largo del eje z negativo,Pz es negativo:Pz&lt; 0. Para mantener positiva la coordenada y del punto proyectado, ya que Py es positivo, tenemos que Pz). Si seguimos el mismo razonamiento encontramos la coordenada x del punto proyectado usando la siguiente ecuación:
+<span>\[Ps_x =\dfrac{n * P_x}{-P_z}.\]</span></p><p>Ahora bien debemos relacional Psx y psy con la matriz de perspectiva.</p><p>Si asumimos que Ps es visible, podemos escribir:
+<span>\[l \leq Ps_x \leq r.\]</span>
+donde l=left y r= right</p><p>Comencemos eliminando l de todos los términos y reescribiendo la ecuación anterior como:
+<span>\[0 \leq Ps_x - l \leq r - l.\]</span>
+Podemos normalizar dividiendo todos los perminos por r-l:
+<span>\[0 \leq {\dfrac{Ps_x - l}{r-l}} \leq 1.\]</span></p><p>Multiplicamos los teminos por 2:
+<span>\[0 \leq 2{\dfrac{Ps_x - l}{r-l}} \leq 2.\]</span></p><p>removiendo el -1 de todos los terminos:
+<span>\[-1 \leq 2{\dfrac{Ps_x - l}{r-l}} -1 \leq 1.\]</span></p><p>Ahora remapeamos el termino central al rango [-1,1]:</p><span>\[-1 \leq 2{ \dfrac{Ps_x - l}{r-l} } - { \dfrac{r-l}{r-l} } \leq 1.\]</span><p>Teniendo:
+<span>\[-1 \leq { \dfrac{2Ps_x - 2l - r + l}{r-l} } \leq 1.\]</span></p><p>Por lo tanto:
+<span>\[-1 \leq { \dfrac{2Ps_x - l - r}{r-l} } \leq 1 \rightarrow -1 \leq { \dfrac{2Ps_x}{r-l} } - { \dfrac{r + l}{r - l} } \leq 1.\]</span></p><p>esos dos terminos son similares a los 2 primeros de la primera fila de OpenGL perspective projection matrix, estamos cerca, por lo que reemplazamos Psx de la ecuacion previa con la ecuacion 2, teniendo:
+<span>\[-1 \leq { \dfrac{2 n P_x}{-P_z{(r-l)}} } - { \dfrac{r + l}{r - l} } \leq 1.\]</span></p><p>Podemos facilmente ponerlo en forma de matriz
+<span>\[ \left[\begin{array}{cccc}
+{ \dfrac{2n}{ r-l } } & 0 & { \dfrac{r + l}{ r-l } } & 0 \\
+... & ... & ... & ... \\
+... & ... & ... & ... \\
+0 & 0 & -1& 0\\
+\end{array}\right] \]</span></p><p>Recordando la notacion de multiplicacion por vectores columna de OpenGL:
+<span>\[\left[\begin{array}{cccc}
+{ \dfrac{2n}{ r-l } } & 0 & { \dfrac{r + l}{ r-l } } & 0 \\
+... & ... & ... & ... \\
+... & ... & ... & ... \\
+0 & 0 & -1& 0\\
+\end{array}\right] * \left[ \begin{array}{cccc}x \\ y \\ z \\ w\end{array}\right]\]</span></p><p>Computando Psx, usando las matrices dadas:
+<span>\[Ps_x = { \dfrac{2n}{ r-l } } P_x + 0 * P_y + { \dfrac{r + l}{ r-l } } * P_z + 0 * P_w.\]</span></p><p>Convirtiendo Ps de homogenea a coordenadas cartesianas:
+<span>\[Ps_x = \dfrac { \dfrac {2n} { r-l } P_x } { -P_z} + \dfrac{ \dfrac {r + l} { r-l } P_z } { -P_z} \rightarrow \dfrac {2n P_x} { -P_z (r-l) } - \dfrac {r + l} { r-l }.\]</span></p><p>Reemplazando l y r con b y t:
+<span>\[-1 \leq { \dfrac{2 n P_y}{-P_z{(t-b)}} } - { \dfrac{t + b}{t - b} } \leq 1.\]</span></p><p>Podemos obtener este resultado con una multiplicación matricial puntual si reemplazamos los coeficientes segundo y tercero de la segunda fila de la matriz con el primer y segundo término de esta ecuación:</p><span>\[\left[\begin{array}{cccc}
+{ \dfrac{2n}{ r-l } } & 0 & { \dfrac{r + l}{ r-l } } & 0 \\
+0 & { \dfrac{2n}{ t-b } } & { \dfrac{t + b}{ t-b } } & 0 \\
+... & ... & ... & ... \\
+0 & 0 & -1& 0\\
+\end{array}\right]\]</span><p>Computando Psy usando las matrices dadas:</p><span>\[Ps_y = 0 * P_x + { \dfrac{2n}{ (t-b) } } * P_y + { \dfrac{t + b}{ t-b } } * P_z + 0 * P_w\]</span><p>Y despues de la division por -Pz:
+<span>\[Ps_y = \dfrac { \dfrac {2n} {t - b} P_y } { -P_z} + \dfrac{ \dfrac {t + b} {t - b} P_z } { -P_z} \rightarrow \dfrac {2n P_y} { -P_z (t - b) } - \dfrac {t + b} {t - b}\]</span></p><p>La matriz vuelve a funcionar, y Por lo tanto, los coeficientes primero y segundo de la tercera fila de la matriz, que se multiplicarían por las coordenadas P x e y, son necesariamente cero (en verde). Nos quedan dos coeficientes A y B en la matriz que son desconocidos (en rojo).
+<span>\[\left[\begin{array}{cccc}
+{ \dfrac{2n}{ r-l } } & 0 & { \dfrac{r + l}{ r-l } } & 0 \\
+0 & { \dfrac{2n}{ t-b } } & { \dfrac{t + b}{ t-b } } & 0 \\
+\color{green}0 & \color{green}0 & \color{red}A & \color{red}B \\
+0 & 0 & -1& 0\\
+\end{array}\right]\]</span></p><p>Si escribimos las ecuacion para computar Psz (recordando que Psz se divide tambien por Psw, cuando el punto es convertido de homogenea a cooredeandas cartesianas, y que Pw=1):
+<span>\[Ps_z = \dfrac{0 * P_x + 0 * P_y + A * P_z + B * P_w}{Ps_w = -P_z} \rightarrow \dfrac{A P_z + B}{Ps_w = -P_z}.\]</span></p><p>Necesitamos encontrar el valor de A y B. Con suerte sabemos que cuando Pz encuentra en el plano de recorte cercano,Psz ser reasignado a -1 y Pz encuentra en el plano de recorte lejano,Psz necesita ser reasignado a 1. Por lo tanto, necesitamos reemplazar Psz por n y f la ecuación para obtener dos nuevas ecuaciones (tenga en cuenta que la coordenada z de todos los puntos proyectados en el plano de la imagen son negativas pero n y F son positivos por lo tanto usaremos -n y -f cambio):
+<span>\[\left\{ \begin{array}{ll} \dfrac{(P_z=-n)A + B}{(-P_z=-(-n)=n)} = -1 &\text{ when } P_z = n\\ \dfrac{(P_z=-f)A + B}{(P_z=-(-f)=f)} = 1 & \text{ when } P_z = f \end{array} \right. \\ \rightarrow \left\{ \begin{array}{ll} {-nA + B} = -n & (1)\\ {-fA + B} = f & (2) \end{array} \right.\]</span></p><p>Resolviendo B en la ecuacion 1:
+<span>\[B = -n + An.\]</span></p><p>Sustituyendo B en la ecuacion 2, con est ecuacion:
+<span>\[-fA - n + An = f. \]</span></p><p>Luego resolviendo A:
+<span>\[-fA + An = f + n \rightarrow -(f - n)A = f + n \rightarrow A = -\dfrac{f + n}{f - n}. \]</span></p><p>Ya que tenemos la solucion para A, es facil encontrar B, solo necesitamos reemplazar A en la ecuacion 1 para encontrar B:
+<span>\[B = -n + An= -n -\dfrac{f + n}{f - n} n = \\-(1+\dfrac{f + n}{f - n}) n = - \dfrac{{(f -n + f + n)}n}{f - n}=-\dfrac { 2fn }{f -n}\]</span></p><p>Hallado A y B, finalmente tenemos que
+<span>\[\left[\begin{array}{cccc} { \dfrac{2n}{ r-l } } & 0 & { \dfrac{r + l}{ r-l } } & 0 \\ 0 & { \dfrac{2n}{ t-b } } & { \dfrac{t + b}{ t-b } } & 0 \\ 0 & 0 & -{\dfrac{f+n}{f-n}} & -{\dfrac{2fn}{f-n}}\\ 0 & 0 & -1& 0\\ \end{array}\right]\]</span></p></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/visualcomputing/showcase/commit/629cc1c7d7626fda562c32fd349899c54213faf2 title="Last modified by nrrf | April 29, 2022" target=_blank rel=noopener><img src=/visual_computing_page/svg/calendar.svg class=book-icon alt=Calendar>
+<span>April 29, 2022</span></a></div></div><script>(function(){function e(n){const e=window.getSelection(),t=document.createRange();t.selectNodeContents(n),e.removeAllRanges(),e.addRange(t)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#proyecciones>Proyecciones</a></li><li><a href=#proyeccion-ortogonal-analogo-para-otro-view-volume-y-diferente-sistema-de-coordenadas>Proyeccion Ortogonal (Analogo, para otro View Volume y diferente sistema de coordenadas)</a></li><li><a href=#matriz-de-perspectiva-opengl>Matriz de perspectiva (OpenGL)</a></li></ul></nav></div></aside></main></body></html>
