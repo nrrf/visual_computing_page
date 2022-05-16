@@ -1,6 +1,6 @@
 // 
-const ROWS = 20;
-const COLS = 20;
+const ROWS = 15;
+const COLS = 15;
 const LENGTH = 20;
 let upScale = 0.4;
 let quadrille;
@@ -8,76 +8,39 @@ let row0, col0, row1, col1, row2, col2;
 let img
 
 function preload(){ 
-  img=loadImage("/visual_computing_page/sketches/happy.png")
+  img=loadImage("/visual_computing_page/sketches/happy.jpg")
 }
 function setup() {
-  
-  createCanvas(img.width * upScale, img.height * upScale);
-  image(img, 0, 0, img.width * upScale, img.height * upScale);
-  img.loadPixels();
-  quadrille = createQuadrille(20, 20);
-  //randomize();
-  // highlevel call:
-  quadrille.colorizeTriangle(row0, col0, row1, col1, row2, col2, [0, 0, 0,0], [0, 0, 0,0], [0, 0, 0,0]);
-  //quadrille.colorizeTriangle(row0, col0, row1, col1, row2, col2, 'red', 'green', 'blue');
-  //quadrille.colorize('red', 'green', 'blue', 'cyan');
+  createCanvas((img.width * upScale)*2, img.height * upScale);
+  loadImage("/visual_computing_page/sketches/happy.png", loadedImage => {
+    // when the image is fully loaded
+    img = loadedImage;
+    // make pixels available
+    img.loadPixels();
+    // get the upscaled version 
+    imgScaled = getAliasedGraphics(img, upScale);
+    // render in p5 canvas
+    background('#a8b8f8');  
+    // blurred version
+    image(img, 0, 0, img.width * upScale, img.height * upScale);
+    // manually redrawn version
+    image(imgScaled, img.width * upScale, 0, imgScaled.width, imgScaled.height);
+    console.log(imgScaled);
+  })
+
+  quadrille = createQuadrille(15, 15); 
+  subquadrille = createQuadrille(4*15,4*15);
 }
 
 function draw() {
-  background('rgba(0,0,0, 0)');
-  drawQuadrille(quadrille, { cellLength: ((img.width * upScale)/20), outline: 'green', board: true });
-  tri();
+  drawQuadrille(subquadrille, { cellLength: ((img.width * upScale)/15)/4, outline: 'blue', board: true });
+  drawQuadrille(quadrille, { cellLength: ((img.width * upScale)/15), outline: 'green', board: true });
 }
 
-function tri() {
-  push();
-  stroke('cyan');
-  strokeWeight(3);
-  noFill();
-  triangle(col0 * ((img.width * upScale)/20) + ((img.width * upScale)/20) / 2, row0 * ((img.width * upScale)/20) + ((img.width * upScale)/20) / 2, col1 * ((img.width * upScale)/20) + ((img.width * upScale)/20) / 2, row1 * ((img.width * upScale)/20) + ((img.width * upScale)/20) / 2, col2 * ((img.width * upScale)/20) + ((img.width * upScale)/20) / 2, row2 * ((img.width * upScale)/20) + ((img.width * upScale)/20) / 2);
-  pop();
-}
-
-function keyPressed() {
-  randomize();
-  quadrille.clear();
-  if (key === 'r') {
-    // low level call:
-    // [r, g, b, x, y]: rgb -> color components; x, y -> 2d normal
-    quadrille.rasterizeTriangle(row0, col0, row1, col1, row2, col2, colorize_shader, [255, 0, 0, 7, 4], [0, 255, 0, -1, -10], [0, 0, 255, 5, 8]);
-  }
-  if (key === 's') {
-    quadrille.rasterize(colorize_shader, [255, 0, 0, 7, 4], [0, 255, 0, -1, -10], [0, 0, 255, 5, 8], [255, 255, 0, -1, -10]);
-  }
-  /*
-  if (key === 't') {
-    quadrille.clear(5, 5);
-    quadrille.fill(6, 6, color('cyan'));
-  }
-  */
-}
-
-// pretty similar to what p5.Quadrille.colorizeTriangle does
-function colorize_shader({ pattern: mixin }) {
-  let rgb = mixin.slice(0, 3);
-  // debug 2d normal
-  console.log(mixin.slice(3));
-  // use interpolated color as is
-  return color(rgb);
-}
-
-function randomize() {
-  col0 = int(random(0, COLS));
-  row0 = int(random(0, ROWS));
-  col1 = int(random(0, COLS));
-  row1 = int(random(0, ROWS));
-  col2 = int(random(0, COLS));
-  row2 = int(random(0, ROWS));
-}
 
 function getAliasedGraphics(img, scale){
     // make a graphics layer to draw into
-    let layer = createGraphics(img.width * Math.ceil(scale), img.height * Math.ceil(scale));
+    let layer = createGraphics(img.width * scale,img.height * scale);
     // set drawing style
     layer.noStroke();
     layer.rectMode(CORNER);
@@ -91,20 +54,26 @@ function getAliasedGraphics(img, scale){
     console.log(numBytes)
     console.log(img.pixels.BYTES_PER_ELEMENT)
     // remember in p5 pixels are R,G,B,A bytes, so skip every 4 bytes for 1 pixel
-    // pixelIndex in this case is counting 1 pixel at time
-    for(let i = 0, pixelIndex = 0; i < numBytes; i+= 4, pixelIndex++){
+    // pixelIndex in this case is counting 1 pixel at time 
+    list = []
+    for(let i = 0; i < numBytes/4; i+=(numBytes/4)/(60*60)){
       // get pixel colour
-      let r = pixels[i];
-      let g = pixels[i+1];
-      let b = pixels[i+2];
-      let a = pixels[i+3]
+      let r = pixels[i*4];
+      let g = pixels[i*4+1];
+      let b = pixels[i*4+2];
+      let a = pixels[i*4+3]; 
+
+      list.push([r,g,b,a])
+
       // set it as the fill
-      layer.fill(r, g, b, a);
-      // get the x, y position
-      let x = pixelIndex % imageWidth;
-      let y = floor(pixelIndex / imageWidth);
-      // draw a rectangle for each pixel (offset and scaled up)
-      layer.rect(x * scale, y * scale, scale, scale);
+      // layer.fill(r, g, b, a);
+      // // get the x, y position
+      // let x = pixelIndex % imageWidth;
+      // let y = floor(pixelIndex / imageWidth);
+      // // draw a rectangle for each pixel (offset and scaled up)
+      // layer.rect(x * scale, y * scale, scale, scale);
+      console.log(i)
     }
+    console.log(list.length)
     return layer;
   }
