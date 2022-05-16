@@ -54,14 +54,16 @@ function getAliasedGraphics(img, scale){
     console.log(numBytes)
     console.log(img.pixels.BYTES_PER_ELEMENT)
     // remember in p5 pixels are R,G,B,A bytes, so skip every 4 bytes for 1 pixel
-    // pixelIndex in this case is counting 1 pixel at time
-    for(let i = 0; i < numBytes/4; i+=(numBytes/4)/60*60, i++){
+    // pixelIndex in this case is counting 1 pixel at time 
+    list = []
+    for(let i = 0; i < numBytes/4; i+=(numBytes/4)/(60*60)){
       // get pixel colour
       let r = pixels[i*4];
       let g = pixels[i*4+1];
       let b = pixels[i*4+2];
       let a = pixels[i*4+3]; 
 
+      list.push([r,g,b,a])
 
       // set it as the fill
       // layer.fill(r, g, b, a);
@@ -70,6 +72,8 @@ function getAliasedGraphics(img, scale){
       // let y = floor(pixelIndex / imageWidth);
       // // draw a rectangle for each pixel (offset and scaled up)
       // layer.rect(x * scale, y * scale, scale, scale);
+      console.log(i)
     }
+    console.log(list.length)
     return layer;
   }
