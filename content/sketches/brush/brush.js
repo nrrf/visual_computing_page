@@ -75,6 +75,10 @@ function draw() {
   update();
   background(0);
   
+  
+
+  // We can call both functions to draw all keypoints and the skeletons
+  drawKeypoints();
   push();
   strokeWeight(0.8);
   stroke('magenta');
@@ -87,13 +91,6 @@ function draw() {
     brush(point);
     pop();
   }
-
-  beginHUD(); 
-  image(video, 0,0,200/4,100/4); 
-
-  endHUD(); 
-
-  drawKeypoints();
 }
 
 function update() {
