@@ -1,18 +1,18 @@
 // 
 const ROWS = 15;
-const COLS = 15;
+const COLS = 1;
 const LENGTH = 20;
-let upScale = 0.4;
+let upScale = 1;
 let quadrille;
 let row0, col0, row1, col1, row2, col2;
 let img
 
 function preload() {
-  img = loadImage("/visual_computing_page/sketches/happy.jpg")
+  img = loadImage("https://i.ibb.co/z7cnzhw/happy-tile.jpg")
 }
 function setup() {
   createCanvas((img.width * upScale) * 2, img.height * upScale);
-  loadImage("/visual_computing_page/sketches/happy.png", loadedImage => {
+  loadImage("https://i.ibb.co/z7cnzhw/happy-tile.jpg", loadedImage => {
     // when the image is fully loaded
     img = loadedImage;
     // make pixels available
@@ -48,34 +48,51 @@ function getAliasedGraphics(img, scale) {
   let imageWidth = img.width;
   console.log(imageWidth)
   console.log(img.height)
-  let pixels = img.pixels;
-  console.log(pixels)
+  let pixels = img.pixels; 
+  let arr = Array.from(pixels)
+  //console.log(typeof(pixels))
+  //console.log(arr)
   let numBytes = pixels.length;
   console.log(numBytes)
   console.log(img.pixels.BYTES_PER_ELEMENT)
   // remember in p5 pixels are R,G,B,A bytes, so skip every 4 bytes for 1 pixel
   // pixelIndex in this case is counting 1 pixel at time 
-  list = []
-  for (let i = 0; i < numBytes / 4; i += (numBytes / 4) / (60 * 60)) {
-    // get pixel colour
-    let r = pixels[i * 4];
-    let g = pixels[i * 4 + 1];
-    let b = pixels[i * 4 + 2];
-    let a = pixels[i * 4 + 3];
+  
+  // division por 4, (por los colores)
+  var perChunk = 4
+  arr = arr.reduce((resultArray, item, index) => { 
+    const chunkIndex = Math.floor(index/perChunk)
+  
+    if(!resultArray[chunkIndex]) {
+      resultArray[chunkIndex] = [] // start a new chunk
+    }
+  
+    resultArray[chunkIndex].push(item)
+  
+    return resultArray
+  }, [])
+  console.log(arr)
+  
+  const newArr = [];
 
-    list.push([r, g, b, a])
+  // Aca se crea la matriz
+  while(arr.length) newArr.push(arr.splice(0,img.width)); 
+  console.log(newArr)
 
-    // set it as the fill
-    // layer.fill(r, g, b, a);
-    // // get the x, y position
-    // let x = pixelIndex % imageWidth;
-    // let y = floor(pixelIndex / imageWidth);
-    // // draw a rectangle for each pixel (offset and scaled up)
-    // layer.rect(x * scale, y * scale, scale, scale);
-    console.log(i)
+  list = [] 
+  let c =0
+  for (let i = 0; i < img.height; i += (1200/60)) {
+      for(let j = 0; j < img.width; j += (1200/60)){
+        let r = newArr[i][j][0];
+        let g = newArr[i][j][1];
+        let b = newArr[i][j][2];
+        let a = newArr[i][j][3];
+        list.push([r, g, b, a])
+        console.log(r,g,b,a,i,j)
+      }
   }
   console.log(list.length)
-  var perChunk = 60
+  var perChunk = 4
   var result = list.reduce((resultArray, item, index) => { 
     const chunkIndex = Math.floor(index/perChunk)
   
@@ -87,10 +104,27 @@ function getAliasedGraphics(img, scale) {
   
     return resultArray
   }, [])
-  console.log(result.length)
 
-  for (let i = 0; i<result.length ; i +=4 ) {
+  console.log(result)
 
-  }
+  // Aca se crea la matriz
+  dividePixels = []
+  while(result.length) dividePixels.push(result.splice(0,15)); 
   
+  console.log(dividePixels[0][0])
+  let join_square =[] 
+  let temp = []
+  for(let i =0 ; i<15 ; i++){ 
+    for(let j =0 ; j<4 ; j++){  
+      console.log(j,i)
+      temp.push(dividePixels[j][i])
+      if(j%4==3){ 
+        join_square.push(temp) 
+        temp=[]
+      }
+    }
+  }
+
+  console.log(join_square)
+
 }
