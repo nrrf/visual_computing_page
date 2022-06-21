@@ -52,7 +52,7 @@ Los metodos principales de anti-aliasing:
 
 Vamos a ahondar en lo que es el segundo metodo: 
 
-### Post filtering (Supersampling) 
+### Post filtering (Multisamppling) 
 
 Vamos a ver a traves de un ejercicio, la nocion basica bajo la que funciona este tipo de antialiasing 
 

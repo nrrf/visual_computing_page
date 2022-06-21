@@ -12,4 +12,6 @@ headless: true
 - [Rasterization]({{< relref "/docs/shortcodes/rasterization" >}})
 
 - [Scene Tree]({{< relref "/docs/shortcodes/scene_tree" >}})
+
+- [Shaders]({{< relref "/docs/shortcodes/shaders" >}})
 <br />
