@@ -1,0 +1,57 @@
+<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Shaders # Two colors interpolated with patrons in p5js # Procedural Texturing # Aca de hace el proceduring texturing con shaders de the book of shaders y shader toy"><meta name=theme-color content="#FFFFFF"><meta name=color-scheme content="light dark"><meta property="og:title" content><meta property="og:description" content="Shaders # Two colors interpolated with patrons in p5js # Procedural Texturing # Aca de hace el proceduring texturing con shaders de the book of shaders y shader toy"><meta property="og:type" content="article"><meta property="og:url" content="https://nrrf.github.io/visual_computing_page/docs/shortcodes/shaders/"><meta property="article:section" content="docs"><meta property="article:modified_time" content="2022-06-25T13:29:07-05:00"><title>Shaders | CV-2022-1</title><link rel=manifest href=/visual_computing_page/manifest.json><link rel=icon href=/visual_computing_page/favicon.png type=image/x-icon><link rel=stylesheet href=/visual_computing_page/book.min.ab46de3e725a6415339a37bba23a0067534a37289b063c9f8d011515a63097a8.css integrity="sha256-q0bePnJaZBUzmje7ojoAZ1NKNyibBjyfjQEVFaYwl6g=" crossorigin=anonymous><script defer src=/visual_computing_page/flexsearch.min.js></script>
+<script defer src=/visual_computing_page/en.search.min.cfb5820cd3fbde6a16609c5ce3d5a36b44ee4507990716649f7c024fb1cf5a65.js integrity="sha256-z7WCDNP73moWYJxc49Wja0TuRQeZBxZkn3wCT7HPWmU=" crossorigin=anonymous></script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/visual_computing_page/><span>CV-2022-1</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li><p><strong>Introducción</strong></p></li><li><p><a href=/visual_computing_page/docs/shortcodes/ilusiones/>Ilusiones</a></p></li><li><p><a href=/visual_computing_page/docs/shortcodes/projections/>Proyecciones</a></p></li><li><p><a href=/visual_computing_page/docs/shortcodes/euler_angles/>Angulos de Euler</a></p></li><li><p><a href=/visual_computing_page/docs/shortcodes/rasterization/>Rasterization</a></p></li><li><p><a href=/visual_computing_page/docs/shortcodes/scene_tree/>Scene Tree</a></p></li><li><p><a href=/visual_computing_page/docs/shortcodes/shaders/ class=active>Shaders</a><br></p></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/visual_computing_page/svg/menu.svg class=book-icon alt=Menu></label>
+<strong>Shaders</strong>
+<label for=toc-control><img src=/visual_computing_page/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#shaders>Shaders</a><ul><li><a href=#two-colors-interpolated-with-patrons-in-p5js>Two colors interpolated with patrons in p5js</a></li><li><a href=#procedural-texturing>Procedural Texturing</a></li></ul></li></ul></nav></aside></header><article class=markdown><h1 id=shaders>Shaders
+<a class=anchor href=#shaders>#</a></h1><iframe id=matcap style=width:425px;height:425px srcdoc="
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <script src=https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js></script>
+            <script src=https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/addons/p5.sound.min.js></script>
+             <script src=https://cdn.jsdelivr.net/gh/objetos/p5.quadrille.js/p5.quadrille.min.js></script> 
+            
+            
+            
+            
+            <script src=/visual_computing_page/sketches/shaders/matcap.js></script>
+          </head>
+          <body>
+          </body>
+        </html>
+      "></iframe><h2 id=two-colors-interpolated-with-patrons-in-p5js>Two colors interpolated with patrons in p5js
+<a class=anchor href=#two-colors-interpolated-with-patrons-in-p5js>#</a></h2><iframe id=basic_frag style=width:425px;height:425px srcdoc="
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <script src=https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js></script>
+            <script src=https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/addons/p5.sound.min.js></script>
+             <script src=https://cdn.jsdelivr.net/gh/VisualComputing/p5.treegl/p5.treegl.min.js></script> 
+             <script src=https://www.dynamicmath.xyz/calculus/3d-curves/knotTorus/libraries/dat.gui.min.js></script> 
+            
+            
+            
+            <script src=/visual_computing_page/sketches/shaders/basic_frag.js></script>
+          </head>
+          <body>
+          </body>
+        </html>
+      "></iframe><h2 id=procedural-texturing>Procedural Texturing
+<a class=anchor href=#procedural-texturing>#</a></h2><p>Aca de hace el proceduring texturing con shaders de the book of shaders y shader toy</p><iframe id=procedural_texturing style=width:475px;height:475px srcdoc="
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <script src=https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js></script>
+            <script src=https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/addons/p5.sound.min.js></script>
+             <script src=https://cdn.jsdelivr.net/gh/VisualComputing/p5.treegl/p5.treegl.min.js></script> 
+            
+            
+            
+            
+            <script src=/visual_computing_page/sketches/shaders/procedural_texturing.js></script>
+          </head>
+          <body>
+          </body>
+        </html>
+      "></iframe></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/visualcomputing/showcase/commit/5850dcccc3afdf526a49ec1dfc892fea601dc084 title='Last modified by nrrf | June 25, 2022' target=_blank rel=noopener><img src=/visual_computing_page/svg/calendar.svg class=book-icon alt=Calendar>
+<span>June 25, 2022</span></a></div></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#shaders>Shaders</a><ul><li><a href=#two-colors-interpolated-with-patrons-in-p5js>Two colors interpolated with patrons in p5js</a></li><li><a href=#procedural-texturing>Procedural Texturing</a></li></ul></li></ul></nav></div></aside></main></body></html>

@@ -1,14 +1,14 @@
 {
   "name": "CV-2022-1",
   "short_name": "CV-2022-1",
-  "start_url": "/visual_computing_page/",
-  "scope": "/visual_computing_page/",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
   "icons": [
     {
-      "src": "/visual_computing_page/favicon.svg",
+      "src": "/favicon.svg",
       "sizes": "512x512"
     }
   ]
