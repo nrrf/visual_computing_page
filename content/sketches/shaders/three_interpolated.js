@@ -25,9 +25,11 @@ function setup() {
   //console.log(color1.color().levels)
   color1.position(0,0)
   color1_n = color1.color().levels.map(function(item) { return item/255 }); 
-  print(color1_n)
+  //print(color1_n)
   color2= createColorPicker(color(0,255,0));
   color2.position(0,20)
+  color3= createColorPicker(color(255,255,0));
+  color3.position(0,40)
   noStroke();
   resetShader();
   shader(uvShader);
@@ -44,6 +46,7 @@ function draw() {
    uvShader.setUniform('time', frameCount * 0.01*parDef.time); 
    uvShader.setUniform('c1', normalizecolor(color1)); 
    uvShader.setUniform('c2', normalizecolor(color2)); 
+   uvShader.setUniform('c3', normalizecolor(color3)); 
    
   textureMode(NORMAL);
   
