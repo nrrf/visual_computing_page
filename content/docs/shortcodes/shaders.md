@@ -616,6 +616,10 @@ void main(void){
 
 {{< p5-iframe sketch="/visual_computing_page/sketches/shaders/procedural_texturing.js"  lib1="https://cdn.jsdelivr.net/gh/VisualComputing/p5.treegl/p5.treegl.min.js" width="475" height="475" >}} 
 
+## Conclusiones y Trabajo futuro 
+
+Los shaders son muy flexibles y tienen gran utilidad ya que cada uno de sus uniforms se pasan desde la interfaz, y por sus propiedades, se renderiza de una manera muy rapida en la pagina, ademas permite customizar cualquier tipo de objeto con el patron  que se realiza en el shader, como trabajo futuro esta hacer masking y mapping de aun mas complejidad para reforzar todo lo visto en la investigación de esta interesante tematica.
+
 ## Referencias 
 
 [1] https://en.wikipedia.org/wiki/Procedural_texture
