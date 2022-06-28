@@ -22,7 +22,7 @@ Estructura general con la que funcionan el vertex y fragment shader:
 
 ![ImgShaders](https://images.squarespace-cdn.com/content/v1/54851541e4b0fb60932ad015/1454038074178-VX57RNGV25UR9185Z0KW/image-asset.jpeg)
 
-## Two colors interpolated with patterns in p5js
+## CODE - Two colors interpolated with patterns in p5js
 
 {{< expand "Sketch Code" "...">}}
 ```tpl
@@ -144,7 +144,7 @@ void main(void){
 
 {{< p5-iframe sketch="/visual_computing_page/sketches/shaders/basic_frag.js"  lib1="https://cdn.jsdelivr.net/gh/VisualComputing/p5.treegl/p5.treegl.min.js" lib2="https://www.dynamicmath.xyz/calculus/3d-curves/knotTorus/libraries/dat.gui.min.js" width="425" height="425" >}} 
 
-## Three Colors interpolated with patterns in p5js  
+## CODE - Three Colors interpolated with patterns in p5js  
 
 {{< expand "Sketch Code" "...">}}
 ```tpl
@@ -269,7 +269,7 @@ void main(void){
 
 {{< p5-iframe sketch="/visual_computing_page/sketches/shaders/three_interpolated.js"  lib1="https://cdn.jsdelivr.net/gh/VisualComputing/p5.treegl/p5.treegl.min.js" lib2="https://www.dynamicmath.xyz/calculus/3d-curves/knotTorus/libraries/dat.gui.min.js" width="425" height="425" >}}   
 
-## Texture sampling 
+## CODE - Texture sampling 
 
 {{< expand "Sketch Code" "...">}}
 ```tpl
@@ -387,6 +387,64 @@ void main() {
 {{< p5-iframe sketch="/visual_computing_page/sketches/shaders/texture_sampling2.js"  lib1="https://cdn.jsdelivr.net/gh/VisualComputing/p5.treegl/p5.treegl.min.js" width="725" height="525" >}}   
 
 ## Procedural Texturing 
+
+El campo de la informática visual, donde se utilizan computadoras para generar imágenes visuales y espaciales del mundo real se conoce como computación gráfica.
+ 
+El texturizado en computación gráfica es una técnica muy común utilizada para añadir detalles a la superficie de un objeto. Con un objeto lo que se puede hacer es renderizarlo como un objeto difuso, por ejemplo, utilizando un color sólido para todo el objeto. Si se requiere que el objeto no tenga solo un color sólido, la solución alternativa es dividir el objeto en partes más pequeñas y dar un valor o color único a cada parte del objeto. Romper el objeto para seguir la forma de los detalles de la textura que se quiere aplicar a la superficie de un objeto lleva mucho tiempo y, aunque funciona si el patrón aplicado está hecho sólo de colores sólidos, no funciona si se desea aplicar algunos gradientes de colores en la superficie del objeto.
+ 
+![Texturas](https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Tiling_procedural_textures.jpg/660px-Tiling_procedural_textures.jpg)
+ 
+En computación gráfica el patrón aplicado a la superficie de un objeto puede ser una imagen, pero también puede generarse mediante algún tipo de ecuación matemática. Está segunda técnica se denomina texturizado procedimental. La ventaja de este enfoque es el bajo costo de almacenamiento, la resolución ilimitada de las texturas y la facilidad de mapeo de las mismas. Este tipo de texturas se utiliza a menudo para modelar representaciones superficiales o volumétricas de elementos naturales como la madera, el mármol, el granito, el metal, la piedra y otros.
+ 
+Algunos tipos de estás texturas son: 
+1. Texturizado sólido: es un proceso en el que la función generadora de texturas se evalúa sobre R3 en cada punto de la superficie visible del modelo, de modo que las propiedades del material resultante (como el color, el brillo o la normalidad) sólo dependen de su posición en 3D, y no de su posición parametrizada en la superficie en 2D, como en el mapeo tradicional de texturas en 2D. 
+ 
+2. Textura celular: esta textura se basa en puntos de características que están dispersos en un espacio tridimensional, puntos se utilizan para dividir el espacio en pequeñas regiones al azar llamadas celdas que suelen tener el aspecto de "escamas de lagarto" o "losas". Aunque estas regiones son discretas, la propia función de base celular es continua y puede evaluarse en cualquier lugar del espacio. El ruido de Worley es un tipo común de textura celular. 
+ 
+3. Texturas genéticas: es un enfoque experimental para generar texturas en la cual se modela el resultado final con ayuda de un usuario quien decide cuándo una textura es la adecuada. Como el resultado es difícil de controlar, este método se suele utilizar sólo para texturas experimentales o abstractas. 
+ 
+## Truchet Tiles
+ 
+Son baldosas cuadradas decoradas con patrones que no son rotacionalmente simétricos. Cuando se colocan en un mosaico cuadrado del plano, pueden formar patrones variados, y la orientación de cada azulejo puede utilizarse para visualizar información asociada a la posición del azulejo dentro del mosaico.
+ 
+A continuación se presenta una fotografía de los azulejos de la Catedral Santa María de la Huerta de Tarazona, perteneciente a la entrada Simetrías I en la Catedral de Tarazona del blog MateTurismo, de Angel Requena.
+ 
+![Baldosas](https://culturacientifica.com/app/uploads/2022/04/imagen-4-1.jpg)
+ 
+En 1704, Sébastien Truchet estudió todos los posibles patrones formados por los triángulos rectos orientados en las cuatro esquinas de un cuadrado.
+ 
+![Patrones](https://upload.wikimedia.org/wikipedia/commons/d/d9/Truchet_base_tiles_bordered.png)
+ 
+Este tipo de patrones se han estudiado ampliamente y se han generalizado para incluir otros conjuntos de azulejos que no son rotacionalmente simétricos. En la siguiente imagen, se indica un mosaico Truchet tradicional, luego se indica un mosaico con diagonales y, finalmente, se indica cuartos de círculo, centrados alrededor de los vértices donde las diagonales solían tocarse (estos mosaicos, introducidos por Cyril Stanley Smith, crean interesantes patrones de caminos y círculos en forma de manchas).
+ 
+![Truchet Tiles](https://3.bp.blogspot.com/-cDGA6vs7PQo/WNV5WpNgq6I/AAAAAAAAD1c/LUB-xZUIJesNoPqBdhcdhQDHwv03SH03gCLcB/s1600/3_styles.png)
+
+## Texture Mapping
+El mapeo de texturas es un método para añadir realismo a un gráfico generado por ordenador. Una imagen (la textura) se añade (mapea) a una forma más simple que se genera en la escena, como una calcomanía pegada a una superficie plana. Esto reduce la cantidad de computación necesaria para crear las formas y texturas en la escena. Por ejemplo, se puede generar una esfera y mapear una textura de cara, para eliminar la necesidad de procesar la forma de la nariz y los ojos.
+ 
+Algunos tipos de mapeo de textura son los siguientes:
+ 
+1. Mapeo difuso: es el tipo más común de mapeo de textura. Define el color y el patrón del objeto, es como pintar una imagen en la superficie del objeto. 
+ 
+2. Mapeo especular: se utilizan para definir el brillo/resplandor de una superficie. Normalmente, un mapa especular es una imagen en blanco y negro que mapea el valor de brillo en un objeto. Cuanto más blanco sea el píxel, más brillante será el objeto en ese lugar específico de la textura.
+ 
+![Specular Map](https://cdn-begoj.nitrocdn.com/oNaXHNanfbZkNZkxWvxsifuqbntpZsXW/assets/static/optimized/rev-547990d/wp-content/uploads/2020/06/POLYGONS-01-1-1024x460.png)
+ 
+3. Mapeo de Oclusión Ambiental: es un mapa en escala de grises que contiene datos de iluminación. No se suele utilizar como mapa propio, sino que se suele combinar con el mapa difuso para crear sombras suaves.
+ 
+![AO Map](https://64.media.tumblr.com/e88a3d142919d4a51b7b966ba6dddf49/tumblr_inline_navbxafNDb1r2xhmf.png)
+ 
+4. Mapeo Normal: es una técnica que permite dar iluminación y relieve más detallado a la superficie de un objeto. Este mapeo permite representar detalles de la superficie, como arrugas, arañazos y bordes biselados, almacenando las correspondientes normales de la superficie en una textura.
+ 
+![Normal map](https://learnopengl.com/img/advanced-lighting/normal_mapping_compare.png)
+
+## CODE - Procedural Texturing
+
+Para la realización del ejercicio, tuvimos en cuenta los patrones de The book of Shaders y el tutorial de ShaderToy - Truchet Tiling Explained [6].
+ 
+Para la implementación, la idea principal es dividir el shader con frag y crear los patrones, para lo cual se usó una función aleatoria. Luego se emplea como una textura dentro de un Cubo.
+
+
 
 {{< expand "Sketch Code" "...">}}
 ```tpl
@@ -529,6 +587,29 @@ void main(void){
 ```
 {{< /expand >}}
 
-Aca de hace el proceduring texturing con shaders de the book of shaders y shader toy  
 
 {{< p5-iframe sketch="/visual_computing_page/sketches/shaders/procedural_texturing.js"  lib1="https://cdn.jsdelivr.net/gh/VisualComputing/p5.treegl/p5.treegl.min.js" width="475" height="475" >}} 
+
+## Referencias 
+
+[1] https://en.wikipedia.org/wiki/Procedural_texture
+ 
+[2] https://en.wikipedia.org/wiki/Computer_graphics
+ 
+[3] https://culturacientifica.com/2022/04/20/el-arte-de-la-sencilla-baldosa-de-truchet/
+ 
+[4] https://en.wikipedia.org/wiki/Truchet_tiles
+ 
+[5] https://www.mathrecreation.com/2017/03/truchet-tiles.html
+ 
+[6] https://www.youtube.com/watch?v=2R7h76GoIJM
+ 
+[7] http://wedesignvirtual.com/what-does-a-specular-map-do/
+ 
+[8] https://docs.cryengine.com/display/SDKDOC2/Diffuse+Maps
+ 
+[9] https://askagamedev.tumblr.com/post/95739492476/could-you-explain-the-difference-between-bump
+ 
+[10] https://learnopengl.com/Advanced-Lighting/Normal-Mapping
+ 
+[11] https://docs.cryengine.com/display/SDKDOC2/Normal+Maps
