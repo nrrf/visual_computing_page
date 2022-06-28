@@ -17,12 +17,14 @@ function setup() {
   sel = createSelect(); 
   sel.position(10, 10);
   sel.option('none');
+  sel.option('rgb split');
   sel.option('luma');
   sel.option('hsl');
   sel.option('hsv');
   sel.option('diffuse');
   sel.option('average');
   sel.selected('none');
+  lumaShader.setUniform('resolution', [width, height]);
   lumaShader.setUniform('texture', img);
   sel.changed(mySelectEvent)
 } 
@@ -43,6 +45,8 @@ function mySelectEvent(){
         lumaShader.setUniform('grey_scale', 4)
     }else if(sel.value()=='average'){
         lumaShader.setUniform('grey_scale', 5)
+    }else if(sel.value()=='rgb split'){
+        lumaShader.setUniform('grey_scale', 6)
     }
     else{ 
         lumaShader.setUniform('grey_scale', 0)
